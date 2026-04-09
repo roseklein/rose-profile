@@ -491,6 +491,39 @@
     letter-spacing: 0.02em;
   }
 
+  /* ── TIMELINE ── */
+  .sidebar-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .tl-item {
+    padding-left: 0.75rem;
+    border-left: 1.5px solid rgba(245,240,232,0.15);
+  }
+
+  .tl-role {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(245,240,232,0.85);
+    line-height: 1.3;
+  }
+
+  .tl-company {
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.5);
+    margin-top: 1px;
+  }
+
+  .tl-date {
+    font-size: 0.63rem;
+    color: rgba(245,240,232,0.35);
+    margin-top: 1px;
+    letter-spacing: 0.03em;
+  }
+
   /* ── MOBILE ── */
   .mobile-header { display: none; }
 
@@ -626,26 +659,39 @@
   <aside class="sidebar">
     <div>
       <div class="sidebar-name">Rosalie <em>Klein</em></div>
-      <div class="sidebar-areas">Strategy · Partnerships · Programmes & Projects · Ops</div>
+      <div class="sidebar-areas">Strategy · Partnerships · Programmes & Projects · Community</div>
       <div class="availability-pill">
         <div class="availability-dot"></div>
         Available from May 2026
       </div>
       <div class="sidebar-divider"></div>
 
-      <div class="sidebar-tagline">Excited by work that does good by people and the planet.</div>
 
-
-      <div class="sidebar-label">Past companies</div>
-      <div style="margin-bottom:1.4rem;">
-        <span class="sidebar-tag">WeWork</span>
-        <span class="sidebar-tag">Virgin Media O2</span>
-        <span class="sidebar-tag">10x10 Philanthropy</span>
-        <span class="sidebar-tag">MADE51 / UNHCR</span>
+      <div class="sidebar-label">Experience</div>
+      <div class="sidebar-timeline">
+        <div class="tl-item">
+          <div class="tl-role">Community Experience Manager</div>
+          <div class="tl-company">10x10 Philanthropy</div>
+          <div class="tl-date">2025 – 2026</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Partnerships Consultant</div>
+          <div class="tl-company">MADE51 / UNHCR</div>
+          <div class="tl-date">2023 – 2024</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Social Impact Manager</div>
+          <div class="tl-company">Virgin Media O2</div>
+          <div class="tl-date">2022 – 2023</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Global Impact & Sustainability Manager</div>
+          <div class="tl-company">WeWork · Promoted 4×</div>
+          <div class="tl-date">2019 – 2022</div>
+        </div>
       </div>
 
-      <div class="sidebar-label">Working rights</div>
-      <div class="sidebar-value">🇫🇷 French · 🇬🇧 British<br><span style="opacity:0.7;font-size:0.75rem;">Full EU + UK right to work</span></div>
+      <div class="sidebar-value">🇫🇷 French · 🇬🇧 British<br><span style="opacity:0.7;font-size:0.75rem;">Eligible to work in EU + UK</span></div>
     </div>
 
     <div class="sidebar-pills">
@@ -688,6 +734,12 @@
         <div class="msg-avatar">RK</div>
         <div class="msg-bubble">
           Ask me anything about my experience, how I work, who I am beyond my roles, or what I'm looking for. I'm an open book. 👋
+        </div>
+      </div>
+      <div class="msg rose" style="margin-top:-0.5rem;">
+        <div class="msg-avatar">RK</div>
+        <div class="msg-bubble" style="font-size:0.78rem;opacity:0.7;font-style:italic;">
+          💡 Best experienced on a desktop or laptop.
         </div>
       </div>
     </div>
@@ -1026,6 +1078,55 @@ function renderMarkdown(text) {
 }
 
 
+function showBookingGate() {
+  const msgs = document.getElementById('messages');
+
+  const gate = document.createElement('div');
+  gate.style.cssText = 'margin: 1rem 0; padding: 1.25rem 1.5rem; background: var(--olive); border-radius: 12px; text-align: center;';
+
+  gate.innerHTML = `
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #F5F0E8; margin: 0 0 0.4rem; font-weight: 300;">Enjoying the conversation?</p>
+    <p style="font-size: 0.78rem; color: rgba(245,240,232,0.6); margin: 0 0 1rem; line-height: 1.5;">The real thing is even better. Schedule a call with Rose directly — no chatbot required.</p>
+    <a href="https://calendar.app.google/cN2v56ziw3UegoZD7" target="_blank" style="display:inline-block; background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 9px 20px; border-radius: 20px; text-decoration: none; letter-spacing: 0.02em;">Book a call with Rose →</a>
+  `;
+
+  msgs.appendChild(gate);
+
+  // Disable input
+  document.getElementById('userInput').disabled = true;
+  document.getElementById('userInput').placeholder = 'Book a call to continue the conversation';
+  document.getElementById('sendBtn').disabled = true;
+
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showFollowUps() {
+  const existing = document.getElementById('followup-chips');
+  if (existing) return;
+  const msgs = document.getElementById('messages');
+  const wrap = document.createElement('div');
+  wrap.id = 'followup-chips';
+  wrap.style.cssText = 'padding: 0.25rem 0 0.5rem; display:flex; flex-wrap:wrap; gap:6px;';
+  const chips = [
+    'What did you achieve at 10x10?',
+    'Tell me about the MADE51 project',
+    'What are you looking for in a role?',
+    'What makes you different?',
+    'Why did you go to Australia?',
+    'What are your key strengths?',
+  ];
+  chips.forEach(text => {
+    const btn = document.createElement('button');
+    btn.className = 'suggestion';
+    btn.style.cssText = 'font-size:0.72rem;';
+    btn.textContent = text;
+    btn.onclick = () => ask(text);
+    wrap.appendChild(btn);
+  });
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
 async function sendMsg() {
   if (isLoading) return;
   const input = document.getElementById('userInput');
@@ -1061,6 +1162,14 @@ async function sendMsg() {
     document.getElementById('typing-indicator')?.remove();
     addMsg('rose', reply);
     history.push({ role: 'assistant', content: reply });
+
+    const assistantCount = history.filter(m => m.role === 'assistant').length;
+    if (assistantCount === 1) {
+      showFollowUps();
+    }
+    if (assistantCount === 3) {
+      showBookingGate();
+    }
 
   } catch (e) {
     document.getElementById('typing-indicator')?.remove();
