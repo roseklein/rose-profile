@@ -360,12 +360,13 @@
     border-radius: 2px 12px 12px 12px;
   }
 
-  .msg.rose .msg-bubble p { margin: 0.4rem 0; }
+  .msg.rose .msg-bubble p { margin: 0.3rem 0; line-height: 1.6; }
   .msg.rose .msg-bubble p:first-child { margin-top: 0; }
   .msg.rose .msg-bubble p:last-child { margin-bottom: 0; }
-  .msg.rose .msg-bubble ul { margin: 0.4rem 0 0.4rem 1rem; padding: 0; }
-  .msg.rose .msg-bubble li { margin: 0.2rem 0; list-style: disc; }
+  .msg.rose .msg-bubble ul { margin: 0.3rem 0 0.3rem 1.1rem; padding: 0; }
+  .msg.rose .msg-bubble li { margin: 0.25rem 0; list-style: disc; line-height: 1.55; }
   .msg.rose .msg-bubble strong { font-weight: 500; color: var(--ink); }
+  .msg.rose .msg-bubble br { display: block; content: ''; margin: 0.1rem 0; }
 
   .msg.user .msg-bubble {
     background: var(--olive);
@@ -879,21 +880,38 @@ function ask(text) {
 }
 
 function renderMarkdown(text) {
-  return text
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/^### (.+)$/gm, '<p style="font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;opacity:0.6;margin:0.75rem 0 0.25rem;">$1</p>')
-    .replace(/^## (.+)$/gm, '<p style="font-weight:500;margin:0.5rem 0 0.25rem;">$1</p>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>)/gs, '<ul style="margin:0.5rem 0 0.5rem 1rem;padding:0;list-style:disc;">$1</ul>')
-    .replace(/
+  const escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 
-/g, '</p><p style="margin:0.5rem 0 0;">')
-    .replace(/
-/g, '<br>')
-    .replace(/^(?!<)(.+)$/gm, (m) => m.startsWith('<') ? m : m);
+  const lines = escaped.split('\n');
+  let output = '';
+  let inList = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+
+    line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    line = line.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+
+    if (line.startsWith('- ')) {
+      if (!inList) { output += '<ul>'; inList = true; }
+      output += '<li>' + line.slice(2) + '</li>';
+    } else {
+      if (inList) { output += '</ul>'; inList = false; }
+      if (line.trim() === '') {
+        output += '<br>';
+      } else {
+        output += '<p>' + line + '</p>';
+      }
+    }
+  }
+
+  if (inList) output += '</ul>';
+  return output;
 }
+
 
 async function sendMsg() {
   if (isLoading) return;
