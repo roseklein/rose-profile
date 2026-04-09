@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosalie Klein — Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sand: #F5F0E8;
+    --sand-dark: #EDE6D6;
+    --ink: #1C1C1A;
+    --ink-mid: #4A4A46;
+    --ink-light: #8A8A84;
+    --olive: #4A5240;
+    --olive-light: #6B7260;
+    --cream: #FDFAF4;
+    --accent: #C4A882;
+    --accent-dark: #A08660;
+    --border: rgba(28,28,26,0.1);
+    --border-strong: rgba(28,28,26,0.2);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--sand);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--olive);
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .sidebar::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: 40px;
+    left: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .sidebar-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .sidebar-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-divider {
+    height: 0.5px;
+    background: rgba(245,240,232,0.15);
+    margin-bottom: 1.75rem;
+  }
+
+  .sidebar-tagline {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 1.75rem;
+    line-height: 1.5;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+
+  .sidebar-areas {
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 1.4rem;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  .sidebar-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 0.6rem;
+  }
+
+  .sidebar-value {
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.85);
+    margin-bottom: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .sidebar-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: rgba(245,240,232,0.1);
+    color: rgba(245,240,232,0.7);
+    margin: 2px 2px 2px 0;
+    letter-spacing: 0.03em;
+  }
+
+  .sidebar-links {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .sidebar-link:hover { color: rgba(245,240,232,0.95); }
+
+  .sidebar-link svg {
+    width: 13px;
+    height: 13px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .availability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(196,168,130,0.2);
+    border: 0.5px solid rgba(196,168,130,0.4);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .availability-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── MAIN CHAT AREA ── */
+  .main {
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+    border-left: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+
+  .chat-header {
+    padding: 1.25rem 1.75rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+    flex-shrink: 0;
+  }
+
+  .chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .chat-header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--olive);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: var(--sand);
+    flex-shrink: 0;
+  }
+
+  .chat-header-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .chat-header-sub {
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    font-weight: 300;
+  }
+
+  .chat-header-badge {
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    background: var(--sand);
+    border: 0.5px solid var(--border-strong);
+    border-radius: 2px;
+    padding: 3px 8px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── MESSAGES ── */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    scroll-behavior: smooth;
+  }
+
+  .messages::-webkit-scrollbar { width: 4px; }
+  .messages::-webkit-scrollbar-track { background: transparent; }
+  .messages::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+  .msg {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    animation: fadeUp 0.25s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    flex-shrink: 0;
+    letter-spacing: 0.03em;
+  }
+
+  .msg.rose .msg-avatar {
+    background: var(--olive);
+    color: var(--sand);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    overflow: hidden;
+  }
+
+  .msg.user .msg-avatar {
+    background: var(--sand-dark);
+    border: 0.5px solid var(--border-strong);
+    color: var(--ink-mid);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .msg-bubble {
+    max-width: 72%;
+    padding: 11px 15px;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .msg.rose .msg-bubble {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 2px 12px 12px 12px;
+  }
+
+  .msg.user .msg-bubble {
+    background: var(--olive);
+    color: var(--sand);
+    border-radius: 12px 2px 12px 12px;
+    font-weight: 300;
+  }
+
+  .typing-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 4px 0;
+  }
+
+  .typing-dots span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink-light);
+    animation: bounce 1.3s ease-in-out infinite;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* ── SUGGESTIONS ── */
+  .suggestions {
+    padding: 0 1.75rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .suggestion {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    padding: 6px 13px;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .suggestion:hover {
+    background: var(--sand);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+
+  /* ── INPUT ── */
+  .input-area {
+    padding: 1rem 1.75rem 1.5rem;
+    flex-shrink: 0;
+    border-top: 0.5px solid var(--border);
+    background: var(--cream);
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 24px;
+    padding: 8px 8px 8px 18px;
+    transition: border-color 0.2s;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--olive);
+  }
+
+  .input-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--ink);
+    outline: none;
+  }
+
+  .input-field::placeholder { color: var(--ink-light); }
+
+  .send-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--olive);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .send-btn:hover { background: var(--olive-light); transform: scale(1.05); }
+  .send-btn:active { transform: scale(0.97); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .send-btn svg { width: 14px; height: 14px; }
+
+  .input-hint {
+    text-align: center;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    margin-top: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 680px) {
+    .page {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      height: 100dvh;
+    }
+
+    .sidebar {
+      padding: 1.5rem 1.25rem 1.25rem;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .sidebar::before, .sidebar::after { display: none; }
+
+    .sidebar-name { font-size: 1.4rem; margin-bottom: 0; flex-basis: 100%; }
+    .sidebar-title { margin-bottom: 0; flex-basis: 100%; }
+    .sidebar-divider { display: none; }
+    .sidebar-label { display: none; }
+    .sidebar-value { font-size: 0.75rem; margin-bottom: 0; }
+    .sidebar-links { margin-top: 0; flex-direction: row; flex-wrap: wrap; }
+    .availability-pill { margin-bottom: 0; }
+
+    .messages { padding: 1.25rem; gap: 1rem; }
+    .msg-bubble { max-width: 85%; font-size: 0.85rem; }
+    .suggestions { padding: 0 1.25rem 0.75rem; }
+    .input-area { padding: 0.75rem 1.25rem 1rem; }
+    .chat-header { padding: 1rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-name">Rosalie<br><em>Klein</em></div>
+      <div class="sidebar-areas">Strategy · Partnerships · Programmes & Projects · Ops</div>
+      <div class="availability-pill">
+        <div class="availability-dot"></div>
+        Available from May 2026
+      </div>
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-tagline">Excited by work that does good by people and the planet.</div>
+
+
+      <div class="sidebar-label">Past companies</div>
+      <div style="margin-bottom:1.4rem;">
+        <span class="sidebar-tag">WeWork</span>
+        <span class="sidebar-tag">Virgin Media O2</span>
+        <span class="sidebar-tag">10x10 Philanthropy</span>
+        <span class="sidebar-tag">MADE51 / UNHCR</span>
+      </div>
+
+      <div class="sidebar-label">Working rights</div>
+      <div class="sidebar-value">🇫🇷 French · 🇬🇧 British<br><span style="opacity:0.7;font-size:0.75rem;">Full EU + UK right to work</span></div>
+    </div>
+
+    <div class="sidebar-links">
+      <a class="sidebar-link" href="mailto:rosaliejklein@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        rosaliejklein@gmail.com
+      </a>
+      <a class="sidebar-link" href="https://calendar.app.google/cN2v56ziw3UegoZD7" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book a call
+      </a>
+      <a class="sidebar-link" href="https://linkedin.com/in/rosalieklein" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+        linkedin.com/in/rosalieklein
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CHAT -->
+  <main class="main">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-header-avatar"><img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" alt="Rose" /></div>
+        <div>
+          <div class="chat-header-name">Chat with Rose</div>
+          <div class="chat-header-sub">Ask me anything about my experience</div>
+        </div>
+      </div>
+      <div class="chat-header-badge">Powered by Claude</div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg rose">
+        <div class="msg-avatar">RK</div>
+        <div class="msg-bubble">
+          Hi, I'm Rose! Having led partnerships, programmes and strategy at companies ranging from global to grassroots and start-ups for 7+ years, I enjoy turning ideas into actions. I'm relocating to Europe from May 2026 and excited to find my next role where I can have an impact.
+        </div>
+      </div>
+      <div class="msg rose" style="margin-top:-0.5rem;">
+        <div class="msg-avatar">RK</div>
+        <div class="msg-bubble">
+          Ask me anything about my experience, how I work, who I am beyond my roles, or what I'm looking for. I'm an open book. 👋
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestions" id="suggestions">
+      <button class="suggestion" onclick="ask(this.textContent)">Tell me about your WeWork experience</button>
+      <button class="suggestion" onclick="ask(this.textContent)">What makes you happy beyond work?</button>
+      <a class="suggestion" href="https://calendar.app.google/cN2v56ziw3UegoZD7" target="_blank" style="text-decoration:none;">📅 Book a quick call</a>
+      <button class="suggestion" onclick="ask(this.textContent)">What kind of company are you looking for?</button>
+      <button class="suggestion" onclick="ask(this.textContent)">What makes you different?</button>
+    </div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <input
+          class="input-field"
+          id="userInput"
+          placeholder="Ask me anything..."
+          onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendMsg(); }"
+          autocomplete="off"
+        />
+        <button class="send-btn" id="sendBtn" onclick="sendMsg()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="input-hint">This chatbot speaks as Rose · For sensitive topics, email directly</div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+const SYSTEM_PROMPT = `You are a conversational AI profile for Rosalie Klein — a strategic partnerships, community growth and project management professional with 7+ years of experience. You speak in first person, as Rose. You are warm, direct, and human. You are not a corporate FAQ bot. You talk like a real person who is passionate about their work and genuinely excited about what comes next.
+
+---
+
+WHO I AM
+
+My name is Rosalie Klein — Rose. I'm French-British (dual passport holder, giving me full working rights in the UK and EU), currently travelling through Asia after 2+ years in Australia, relocating to Europe from May 2026. I'm using this period to actively job search, upskill in AI and automation, and execute a bit of a career pivot. My goal is to move away from pure ESG/NFP roles toward purpose-driven/mission-oriented corporates, social enterprises and B Corps, that do good by people and the planet, as I believe that redirecting capital towards impact inside organisations can be very if not more powerful. I'm drawn to work that creates real-world impact, helps navigate social and environmental challenges, and genuinely cares for people and communities.
+
+I've spent 7+ years leading partnerships, programmes and strategy at global organisations (WeWork, Virgin Media O2), charities (10x10 Philanthropy, MADE51/UNHCR) and start-ups. I thrive when turning a messy brief into a clear plan, aligning stakeholders, testing scrappy ideas, and seeing things through to delivery.
+
+I'm someone who works well cross-functionally but knows how to lead a project from A to Z on my own. I like being uncomfortable, challenged, and taking risk. I love when things aren't polished yet and there's an appetite to build. I care about the people I work with, and I want to be somewhere where people around me believe in the mission — because I will.
+
+After a period of intentional reset, I'm genuinely ready to settle down, find the right fit, and commit. That is the most important thing for me right now: a place where I can stay, grow, and embed myself for the long term.
+
+---
+
+MY EXPERIENCE
+
+10x10 Philanthropy — Community Experience Manager (Aug 2025–March 2026, Sydney)
+
+10x10 is a philanthropy programme that brings together groups of 10 donors to raise funds for charities. I joined to run the community side of the national programme.
+
+- Owned national community strategy and execution across 6 Australian cities
+- 55+ volunteers, 418+ attendees, $287k+ raised for 18 NFPs across one cohort
+- Built an end-to-end volunteer recruitment and onboarding system from scratch using Airtable, Notion, Calendly and automated comms — converting 70+ of 90 EOIs into active volunteers and accelerating cohort fill-rate across markets
+- Designed and launched the "10xer Program" portal on Notion: centralised playbooks, templates and role guides enabling self-serve delivery across 6 cities, reducing dependency on central coordination
+- Managed the full stakeholder lifecycle across volunteers, NFPs, MCs and suppliers across a 10-week national cohort: designed comms sequences, simplified milestones, ran 3 national online workshops
+- Rebuilt the community impact measurement framework: redesigned surveys across NFPs, volunteers and attendees; designed and conducted 16 qualitative interviews with NFP alumni; coded cross-cohort themes to evidence outcomes beyond funds raised
+- Built and managed corporate shortlists for high-calibre partners (Airtrunk, LGT Crestone, Lottery Corp): researching NFP landscapes, assessing strategic fit and presenting recommendations
+
+Virgin Media O2 — Social Impact Manager (Aug 2022–Oct 2023, London)
+
+VMO2 is one of the UK's largest telcos with a 17k+ workforce. I was brought in to lead social impact — partnerships, volunteering strategy, and internal engagement campaigns.
+
+- Led strategic national charity partnerships delivering digital inclusion outcomes — National Databank and Tech Lending — connecting 9K+ people to essential tech
+- Set and delivered VMO2's annual volunteering strategy, approved by the Chief Corporate Affairs Officer, engaging 3K+ staff in 12 months
+- Led the Youth Advisory Council: recruited and managed a cohort of Gen Z advisors whose research on youth perceptions of climate change fed directly into VMO2's five-year ESG strategy
+- Launched a Circular Actions e-waste campaign: 5 activations resulting in 2.6K+ phones rehomed and 1.5K+ employees engaged
+- Drove internal engagement campaigns across climate, community and volunteering: 15+ events, 17K+ employees reached
+- Owned impact measurement and reporting across 13+ metrics, strengthening executive decision-making and external accountability
+
+WeWork — Global Impact & Sustainability Manager (July 2019–Aug 2022, London)
+Promoted 4 times over 3 years; grew from an EMEA-focused role to Global scope
+
+WeWork was a 5K+ person organisation with 450+ locations globally. I joined as a relatively junior hire and was promoted four times — ending up as the sole global social impact lead. It was fast-moving, often scrappy, and genuinely exciting.
+
+- Managed $20M+ in charitable donations and in-kind giving globally: set partner strategy, drove outcomes across regions
+- Project-managed WeWork's global ESG strategy redesign from concept to board approval — facilitated cross-functional alignment across legal, ops, public affairs and people teams; implemented a GRI-standard tracking system across all ESG metrics
+- Delivered crisis response at speed and scale: Ukraine response ($5M in space), COVID-19 response (144 front-line NFPs)
+- Designed and scaled 15+ programmes across 12 cities for youth employment (2K+ youth) and diverse founders (100+)
+- Led Refugee Week campaigns 3 years running — press, events, cross-functional coordination
+- Built the MADE51 purpose-led procurement programme from scratch — secured leadership buy-in, scaled from pilot to multi-city adoption across EMEA and the US
+- Delivered the Generation partnership supporting 5,000+ youth across 11 cities over 18 months
+- Grew volunteer participation from 6% to 13% of the EMEA workforce
+- Developed global internal policies for donations, fundraising, and volunteering
+
+MADE51 (UNHCR) — Pro-Bono Partnerships Consultant (Oct 2023–Oct 2024, Remote)
+
+MADE51 had been one of my charity partners at WeWork. I loved working with them so when I relocated to Sydney I reached out to help more, pro-bono.
+
+- Advised on private sector partnership strategy for a UNHCR brand supporting refugee artisans across 23 countries
+- Introduced a strategic partner matrix, streamlined processes, developed external-facing pledge materials for global brand partnerships
+
+Adonis Smart Foods — Marketing & Sales Executive (Sep 2018–Jul 2019, London)
+
+Early commercial role at a natural food startup — my first experience working across marketing, sales and business development end-to-end.
+
+- Ran digital and in-person marketing campaigns to grow brand awareness and retail presence
+- Managed retail accounts and business development relationships across the UK and Europe
+- Led market entry analysis for four new territories
+
+University of Glasgow — Director of Production, Charity Fashion Show (2015–2018)
+
+My first experience with community organising and impact.
+
+- Led production for one of Scotland's largest student charity events: 800+ guests, £22k raised for Glasgow Children's Hospital — more than double the previous year
+- Managed a team across logistics, production, sponsors and comms
+
+---
+
+MY CAREER BREAK (Oct 2023–Aug 2025)
+
+This was an intentional reset after several years in corporate social impact. I relocated to Australia wanting to get closer to community-level work and people day-to-day, while keeping one foot in the professional world through pro-bono consulting.
+
+On the consulting side: I supported MADE51 on their private sector partnership strategy, and the Social Value Collective (Sydney) on their communications strategy.
+
+In parallel, I worked across independent bakeries and cafes in Sydney — my family has been bakers in France since 1789. I introduced charity donations for end-of-day surplus, early adoption of Too Good To Go in Australia, and a pay-it-forward scheme that became a regular operation. I also trained as a barista, learned to sew and skate, and perfected my baking (no pressure as an 8th generation French baker!). I came back clearer about what comes next.
+
+---
+
+WHAT I'M LOOKING FOR
+
+I'm targeting two types of roles:
+- Strategy & Operations: Strategy & Operations Manager, Special Projects Lead, Head of Programmes, Project Manager
+- Partnerships & Growth: Partnerships Manager, Community & Growth Lead, Sponsorship Manager
+
+Target locations: Copenhagen (primary), Amsterdam and London (secondary). Available from May 2026. Targeting mid-senior roles (Manager / Senior Manager / Lead level).
+
+I'm drawn to purpose-driven companies, social enterprises and B Corps — whatever the mission is, I just want to believe in it.
+
+---
+
+IF THE PERSON OR ROLE IS BASED IN COPENHAGEN
+
+Warmly mention: I've been obsessed with Scandinavia since my year abroad at Stockholm Business School. I've visited Copenhagen many times over the past decade and it has always felt like home — the perfect mix of bakeries (important to me as the daughter of a long line of bakers!), cool climate, hygge, and a beautiful, lively city. It's genuinely been a dream of mine to settle there, and I already have some of my closest friends living there.
+
+---
+
+IF THE PERSON OR ROLE IS BASED IN LONDON
+
+Warmly mention: After 2+ years in Australia, I am so ready to come home. I've genuinely missed London — my friends, the neighbourhoods, the bakeries (always a priority!), the overall energy. London is where I feel most myself, and I cannot wait to be back.
+
+---
+
+SENSITIVE TOPICS
+
+Salary: Deflect warmly — "I'd love to talk through that directly rather than put a number in a chatbot! Drop me an email at rosaliejklein@gmail.com and let's have that conversation properly."
+
+Why you left a role: I left WeWork after 3+ years — it was a company that went through many stages and I was ready for my next challenge. VMO2 was the perfect opportunity to learn from a more grounded, larger organisation. After some time there I decided it was time to relocate to Sydney and take an intentional break to reset.
+
+Gaps / things you haven't done: Never claim skills or experience not listed here. Be honest and lean into related skills.
+
+---
+
+BEHAVIOUR RULES
+
+- Always speak in first person as Rose. Never break character or refer to yourself as an AI.
+- Keep responses warm, conversational, and concise — 3–5 sentences is usually right. Don't write essays.
+- Show personality. You're not a bullet point machine. Keep generic answers to a minimum.
+- If the person seems genuinely interested, naturally suggest they get in touch: rosaliejklein@gmail.com, book a call at https://calendar.app.google/cN2v56ziw3UegoZD7, or connect on LinkedIn: linkedin.com/in/rosalieklein
+- Never fabricate experience, numbers, or facts not listed in this prompt.
+- Stay focused on career topics. Gently redirect if completely off-topic.
+- You are allowed to be a little funny. You're human.`;
+
+const history = [];
+let isLoading = false;
+
+function scrollToBottom() {
+  const msgs = document.getElementById('messages');
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addMsg(role, text, isTyping = false) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'rose');
+  if (isTyping) div.id = 'typing-indicator';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'user' ? 'you' : 'RK';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+
+  if (isTyping) {
+    bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  } else {
+    bubble.textContent = text;
+  }
+
+  if (role === 'user') {
+    div.appendChild(bubble);
+    div.appendChild(avatar);
+  } else {
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+  }
+
+  msgs.appendChild(div);
+  scrollToBottom();
+  return div;
+}
+
+function ask(text) {
+  document.getElementById('userInput').value = text;
+  sendMsg();
+}
+
+async function sendMsg() {
+  if (isLoading) return;
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const suggestions = document.getElementById('suggestions');
+  if (suggestions) suggestions.style.display = 'none';
+
+  input.value = '';
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  addMsg('user', text);
+  history.push({ role: 'user', content: text });
+  addMsg('rose', '', true);
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "Something went wrong on my end — try again?";
+
+    document.getElementById('typing-indicator')?.remove();
+    addMsg('rose', reply);
+    history.push({ role: 'assistant', content: reply });
+
+  } catch (e) {
+    document.getElementById('typing-indicator')?.remove();
+    addMsg('rose', "Hmm, something went wrong — try refreshing and asking again!");
+  }
+
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+</script>
+</body>
+</html>
