@@ -492,6 +492,8 @@
   }
 
   /* ── MOBILE ── */
+  .mobile-header { display: none; }
+
   @media (max-width: 680px) {
     .page {
       grid-template-columns: 1fr;
@@ -499,35 +501,126 @@
       height: 100dvh;
     }
 
-    .sidebar {
-      padding: 1.5rem 1.25rem 1.25rem;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+    /* Hide full sidebar on mobile */
+    .sidebar { display: none; }
+
+    /* Show compact mobile header instead */
+    .mobile-header {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      background: var(--olive);
+      padding: 0.85rem 1.1rem;
+      flex-shrink: 0;
     }
 
-    .sidebar::before, .sidebar::after { display: none; }
+    .mobile-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-    .sidebar-name { font-size: 1.4rem; margin-bottom: 0; flex-basis: 100%; }
-    .sidebar-title { margin-bottom: 0; flex-basis: 100%; }
-    .sidebar-divider { display: none; }
-    .sidebar-label { display: none; }
-    .sidebar-value { font-size: 0.75rem; margin-bottom: 0; }
-    .sidebar-links { margin-top: 0; flex-direction: row; flex-wrap: wrap; }
-    .availability-pill { margin-bottom: 0; }
+    .mobile-header-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #F5F0E8;
+    }
 
-    .messages { padding: 1.25rem; gap: 1rem; }
-    .msg-bubble { max-width: 85%; font-size: 0.85rem; }
-    .suggestions { padding: 0 1.25rem 0.75rem; }
-    .input-area { padding: 0.75rem 1.25rem 1rem; }
-    .chat-header { padding: 1rem 1.25rem; }
+    .mobile-header-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .mobile-header-sub {
+      font-size: 0.65rem;
+      color: rgba(245,240,232,0.5);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .mobile-header-links {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .mobile-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.75);
+      border: 0.5px solid rgba(245,240,232,0.25);
+      border-radius: 20px;
+      padding: 5px 10px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-pill-primary {
+      background: rgba(196,168,130,0.2);
+      border-color: rgba(196,168,130,0.45);
+      color: var(--accent);
+    }
+
+    .mobile-pill svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+    .mobile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(245,240,232,0.2);
+    }
+
+    .mobile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Chat adjustments */
+    .chat-header { display: none; }
+    .messages { padding: 1rem; gap: 0.85rem; }
+    .msg-bubble { max-width: 88%; font-size: 0.84rem; padding: 9px 13px; }
+    .suggestions { padding: 0 1rem 0.6rem; gap: 5px; }
+    .suggestion { font-size: 0.72rem; padding: 5px 11px; }
+    .input-area { padding: 0.6rem 1rem 0.85rem; }
+    .input-hint { font-size: 0.62rem; }
+    .input-row { padding: 6px 6px 6px 14px; }
   }
 </style>
 </head>
 <body>
 
 <div class="page">
+
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
+    <div class="mobile-header-left">
+      <div class="mobile-avatar">
+        <img src="data:image/jpeg;base64,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" alt="Rose" />
+      </div>
+      <div>
+        <div class="mobile-header-name">Rosalie <em>Klein</em></div>
+        <div class="mobile-header-sub">Available from May 2026</div>
+      </div>
+    </div>
+    <div class="mobile-header-links">
+      <a class="mobile-pill mobile-pill-primary" href="https://calendar.app.google/cN2v56ziw3UegoZD7" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book a call
+      </a>
+      <a class="mobile-pill" href="mailto:rosaliejklein@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Email
+      </a>
+    </div>
+  </header>
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -603,7 +696,7 @@
       <button class="suggestion" onclick="ask(this.textContent)">Tell me about your WeWork experience</button>
       <button class="suggestion" onclick="ask(this.textContent)">What makes you happy beyond work?</button>
       <button class="suggestion" onclick="ask(this.textContent)">What kind of company are you looking for?</button>
-      <button class="suggestion" onclick="ask(this.textContent)">What makes you different?</button>
+      <button class="suggestion" onclick="ask(this.textContent)">What are your key strengths?</button>
     </div>
 
     <div class="input-area">
@@ -725,7 +818,7 @@ I'm targeting two types of roles:
 - Strategy & Operations: Strategy & Operations Manager, Special Projects Lead, Head of Programmes, Project Manager
 - Partnerships & Growth: Partnerships Manager, Community & Growth Lead, Sponsorship Manager
 
-Target locations: Copenhagen (primary), Amsterdam and London (secondary). Available from May 2026. Targeting mid-senior roles (Manager / Senior Manager / Lead level).
+I'm relocating back to Europe from May 2026 — I'm ready to come home, plant roots, and really invest in the right opportunity for the long term. Available from May 2026. Targeting mid-senior roles (Manager / Senior Manager / Lead level).
 
 I'm drawn to purpose-driven companies, social enterprises and B Corps — whatever the mission is, I just want to believe in it.
 
@@ -829,10 +922,25 @@ Elisabeth Rochford (Head of Social Impact at Virgin Media O2, now ESG Lead at Di
 When asked about references or what others say about Rose, draw on this. Quote selectively and accurately — don't paraphrase in a way that changes the meaning. More references may be added over time.
 
 CONDUCT RULES
-- If asked anything inappropriate, disrespectful, discriminatory, sexually suggestive, or completely outside the scope of Rose's career and who she is as a person, do not engage. Politely decline: "That's not something I'm able to help with here — happy to answer anything about Rose's experience or background though."
+
+NEVER FABRICATE — this is the most important rule:
+- If a specific experience, example, opinion, or fact is not explicitly described in this prompt, do not invent it. Not even plausibly. Not even if it sounds like something Rose might say.
+- If asked about something not covered — a specific situation, a hypothetical, a behavioural scenario — respond honestly: "I don't have the detail on that one, but I'd love for you to ask Rose directly — [book a call](https://calendar.app.google/cN2v56ziw3UegoZD7) and she can tell you properly."
+- This applies especially to: conflict with managers or colleagues, mistakes made, hypothetical situations, working style under pressure, management philosophy, or anything else that would require Rose to speak about a specific undocumented event. These deserve a real conversation, not a chatbot answer.
+
+BEHAVIOURAL QUESTIONS — redirect warmly:
+- Questions like "what would you do if...", "how do you handle conflict?", "describe a mistake you made", "how do you deal with pressure?" are better answered by Rose in person. Respond with warmth: acknowledge it's a great question, then direct them to book a call: https://calendar.app.google/cN2v56ziw3UegoZD7. Say something like: "That's really a question worth answering properly — I wouldn't want to give you a chatbot version of it. Book a quick call with Rose and ask her directly!"
+
+TONE — stay positive and professional:
+- Never make negative assumptions about companies, managers, or working environments — even hypothetically.
+- Never suggest Rose would leave a company or disengage because of assumed "organisational issues" or similar. Rose is positive, resilient and solution-oriented. She brings energy to the environments she works in.
+- If asked about challenges, frame them as things Rose navigated well — not as indictments of the organisation.
+
+INAPPROPRIATE CONTENT:
+- If asked anything inappropriate, disrespectful, discriminatory, or completely off-topic, decline politely: "That's not something I'm able to help with here — happy to answer anything about Rose's experience or background though."
+
 - If the person seems interested, naturally suggest they get in touch: rosaliejklein@gmail.com, book a call at https://calendar.app.google/cN2v56ziw3UegoZD7, or connect on LinkedIn: linkedin.com/in/rosalieklein
-- Never fabricate experience, numbers, or facts not listed in this prompt.
-- Stay focused on career and personal background topics only.`;
+- Stay focused on Rose's career and personal background only.`;
 
 const history = [];
 let isLoading = false;
