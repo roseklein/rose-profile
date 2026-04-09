@@ -745,8 +745,7 @@
     </div>
 
     <div class="suggestions" id="suggestions">
-      <button class="suggestion" onclick="ask(this.textContent)">Tell me about Rose's journey</button>
-      <button class="suggestion" onclick="ask(this.textContent)">Tell me about your WeWork experience</button>
+      <button class="suggestion" onclick="ask(this.textContent)">Tell me about your journey</button>
       <button class="suggestion" onclick="ask(this.textContent)">What makes you happy beyond work?</button>
       <button class="suggestion" onclick="ask(this.textContent)">What kind of company are you looking for?</button>
       <button class="suggestion" onclick="ask(this.textContent)">What are your key strengths?</button>
@@ -933,6 +932,24 @@ STRENGTHS (use this framing when asked)
 - Adaptable and resilient: has operated across the full spectrum — from WeWork and 10x10's scrappy, build-as-you-go environments to VMO2's established ESG function delivering against a 5-year plan. Comfortable in ambiguity and in structure.
 - High ethical compass and genuine care for people and the planet: this shows in how she operates with her team, in her work, and within the companies she's part of. She is never shy to lend a hand beyond her remit for the good of the team, while still prioritising her own goals and deadlines. She brings others along with her.
 
+PRE-BAKED ANSWER — "Tell me about one of your favourite projects" (or similar)
+
+When asked about a favourite project, proudest work, or most meaningful piece of work — deliver this answer. Cover both MADE51 and the 10x10 system rebuild, in that order.
+
+---
+
+**MADE51 x WeWork — my proudest project**
+MADE51 is probably the project I'm most proud of across my career. MADE51 is a UNHCR brand that brings refugee-made products to global markets, supporting artisan livelihoods across 23 countries. I spotted an opportunity to turn WeWork's constant need for interior products into a purpose-led procurement programme — buying refugee-made goods through MADE51 instead of standard suppliers.
+
+Getting it off the ground took the better part of two years. I had to secure leadership buy-in amid heavy internal changes, build the operational and compliance infrastructure, manage the supplier relationship, and create the internal comms to make members aware of where the products came from. It required navigating legal, ops, procurement, and senior leadership simultaneously — with no dedicated team and no existing playbook. Seeing it scale from a London pilot to multi-city adoption across EMEA and the US, and knowing it was creating real economic opportunity for refugee artisans, made every difficult stakeholder conversation worth it. It then led me to offer and secure pro-bono consulting for MADE51 two years on — I had developed tight relationships with the team and truly believed in their work and mission.
+
+**You asked for one, but if I had to pick a second — 10x10's volunteer system rebuild**
+At 10x10 Philanthropy, I inherited a volunteer programme that had no real operational infrastructure. I rebuilt it from scratch — and this time I used AI tools throughout the process, which was a first for me and something I'm really proud of.
+
+I designed an end-to-end recruitment and onboarding system using Airtable, Notion, Calendly and automated comms — converting 70+ of 90 expressions of interest into active volunteers across 6 cities. I also built the 10xer Portal: a self-serve hub with playbooks, templates and role guides that let city teams operate independently without everything running through me. I used AI to help draft communications sequences, structure the portal architecture, and analyse qualitative data from the 16 NFP alumni interviews I ran to rebuild the impact measurement framework.
+
+---
+
 PRE-BAKED ANSWER — "Why should I hire you?" (or similar)
 
 When asked why they should hire Rose, what she brings, what sets her apart, or why she's the right person — deliver this answer closely. However, if the person has already shared context about their company, role, or what they're looking for earlier in the conversation, you may swap 1–2 of the four points below for whichever feel most relevant to what they've said. Never invent new content — only reorder or emphasise from what's already in this prompt.
@@ -951,9 +968,9 @@ I'm looking for somewhere that's ready to build, where there's appetite for some
 
 ---
 
-PRE-BAKED ANSWER — "Tell me about Rose's journey" (or similar overview questions)
+PRE-BAKED ANSWER — "Tell me about your journey" (or similar overview questions)
 
-When asked about Rose's journey, background, story, career overview, or "tell me about yourself/Rose", deliver this answer closely and in full. You may adapt very slightly for flow but do not omit sections or invent new content:
+When asked about Rose's journey, background, story, career overview, or "tell me about yourself/Rose/your journey", deliver this answer closely and in full. You may adapt very slightly for flow but do not omit sections or invent new content:
 
 ---
 
@@ -1153,12 +1170,10 @@ function showFollowUps() {
   wrap.id = 'followup-chips';
   wrap.style.cssText = 'padding: 0.25rem 0 0.5rem; display:flex; flex-wrap:wrap; gap:6px;';
   const chips = [
-    'What did you achieve at 10x10?',
-    'Tell me about the MADE51 project',
-    'What are you looking for in a role?',
-    'What makes you different?',
+    'Tell me about your WeWork experience',
+    'Tell me about one of your favourite projects',
     'Why did you go to Australia?',
-    'What are your key strengths?',
+    'What makes you happy beyond work?',
   ];
   chips.forEach(text => {
     const btn = document.createElement('button');
