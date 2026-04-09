@@ -360,6 +360,13 @@
     border-radius: 2px 12px 12px 12px;
   }
 
+  .msg.rose .msg-bubble p { margin: 0.4rem 0; }
+  .msg.rose .msg-bubble p:first-child { margin-top: 0; }
+  .msg.rose .msg-bubble p:last-child { margin-bottom: 0; }
+  .msg.rose .msg-bubble ul { margin: 0.4rem 0 0.4rem 1rem; padding: 0; }
+  .msg.rose .msg-bubble li { margin: 0.2rem 0; list-style: disc; }
+  .msg.rose .msg-bubble strong { font-weight: 500; color: var(--ink); }
+
   .msg.user .msg-bubble {
     background: var(--olive);
     color: var(--sand);
@@ -749,6 +756,7 @@ BEHAVIOUR RULES
 
 - Always speak in first person as Rose. Never break character or refer to yourself as an AI.
 - Keep responses warm and human, but polished — the person reading this is likely a recruiter or hiring manager, not a friend. Write like a confident professional having a real conversation, not like you're texting.
+- Format responses for readability: use **bold** for key terms or strength headings, use bullet points (- ) for lists of examples or achievements, and break longer answers into short paragraphs. Never write a wall of unbroken text. For strengths or multi-part answers, bold the heading of each point then explain it on the same or next line.
 - Avoid filler phrases and clichés. Never use: "genuinely", "you know?", "honestly", "pretty", "basically", "kind of", "rarer than it sounds", "don't always come in the same package", or similar spoken tics and gimmicky turns of phrase.
 - Length: 4–6 sentences is the sweet spot. Enough to give real substance, not so much it becomes an essay. Don't over-explain.
 - When talking about a role or project, focus on what you did and what you're proud of. Do NOT volunteer why you left a role unless directly asked.
@@ -760,7 +768,9 @@ LOCATION RULES
 - Never mention or reference specific cities (Copenhagen, Amsterdam, London) unless the person has told you where they are based or where the role is located.
 - If the person's location is unknown, keep all location references general: "relocating to Europe from May 2026" is fine; specific city references are not.
 - Once you know where the person is from or where the role is based, you may use the relevant location narrative provided in this prompt. Do NOT make up location-specific details for cities not covered (e.g. Amsterdam — no specific narrative exists, so keep it general).
-- After answering a first question, if you don't yet know where the person is from or what role/company they represent, naturally invite them to share more: something like "I'd love to know more about you and what you're working on — it'll help me make this more relevant."
+- If the person's location or role comes up naturally in their message (e.g. "I'm based in London" or "I work at Lego"), acknowledge it briefly only if directly relevant to the answer — do not volunteer unsolicited personal commentary about that location or company unprompted.
+- Do NOT ask the user questions about themselves, their challenges, their company, or what drew them to their role. You are here to answer questions about Rose, not to interview the visitor or gather information from them.
+- If the user seems to have run out of questions or the conversation is winding down, you may suggest 1-2 topics they could explore — e.g. "Feel free to ask about specific projects or how I work" — but keep it light and never make it feel like an interrogation.
 
 PERSONAL / BEYOND WORK
 - On what makes Rose happy beyond work: she is happiest when making things and being creative — baking (her family have been bakers in France since 1789), sewing, learning to skate. These connect to a deep curiosity and love of investing in new skills. She needs to be around people — good friends, good food, interesting conversations.
@@ -847,7 +857,7 @@ function addMsg(role, text, isTyping = false) {
   if (isTyping) {
     bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
   } else {
-    bubble.textContent = text;
+    bubble.innerHTML = renderMarkdown(text);
   }
 
   if (role === 'user') {
@@ -866,6 +876,23 @@ function addMsg(role, text, isTyping = false) {
 function ask(text) {
   document.getElementById('userInput').value = text;
   sendMsg();
+}
+
+function renderMarkdown(text) {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^### (.+)$/gm, '<p style="font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;opacity:0.6;margin:0.75rem 0 0.25rem;">$1</p>')
+    .replace(/^## (.+)$/gm, '<p style="font-weight:500;margin:0.5rem 0 0.25rem;">$1</p>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/gs, '<ul style="margin:0.5rem 0 0.5rem 1rem;padding:0;list-style:disc;">$1</ul>')
+    .replace(/
+
+/g, '</p><p style="margin:0.5rem 0 0;">')
+    .replace(/
+/g, '<br>')
+    .replace(/^(?!<)(.+)$/gm, (m) => m.startsWith('<') ? m : m);
 }
 
 async function sendMsg() {
